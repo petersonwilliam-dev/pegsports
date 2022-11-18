@@ -1,0 +1,70 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container-login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgb(239, 239, 239);
+    border-radius: 15px;
+    box-shadow: 1px 1px 5px #0d4496;
+    padding: 10px;
+    text-align: center;
+}
+.img_logo_login{
+    width: 50px;
+    margin: 0 10px;
+}
+.container-login h1 {
+    display: flex;
+    align-items: center;
+    font-weight: 200;
+    margin: 10px 0;
+}
+.container-input{
+    margin: 10px;
+    width: 400px;
+}
+.input-login{
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgb(234, 233, 233);
+    outline: none;
+    width: 100%;
+    transition: .5s;
+}
+.input-login:focus{
+    box-shadow: 1px 1px 5px #0d4496;
+}
+.btn-enviar{
+    padding: 10px;
+    color: white;
+    background: #005eee;
+    border: none;
+    border-radius: 5px;
+    font-weight: 200;
+    cursor: pointer;
+    transition: .5s;
+}
+.btn-enviar:hover{
+    background: #0d4496;
+}
+.links{
+    margin: 20px 0;
+    text-align: start;
+}
+.link{
+    font-weight: 300;
+    display: block;
+    margin: 10px 0;
+    text-decoration: none;
+}
