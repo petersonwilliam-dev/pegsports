@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Loja;
 use App\Models\Product;
+use App\Models\Profit;
+use App\Models\Purchase;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,6 +26,7 @@ class ProductController extends Controller
         $user = auth()->user();
 
         $product = Product::findOrFail($id);
+        $similar = Product::where([['category', $product->category]])->get();
         $inCart = false;
 
         if ($user) {
@@ -35,7 +40,7 @@ class ProductController extends Controller
             }
         }
 
-        return view('products.show', ['products' => $product, 'inCart' => $inCart]);
+        return view('products.show', ['products' => $product, 'inCart' => $inCart, 'similar' => $similar]);
     }
     function create() {
 
@@ -148,5 +153,55 @@ class ProductController extends Controller
         ])->get();
 
         return view('products.search', ['products' => $products, 'search' => $search]);
+    }
+
+    function buyItem($id) {
+
+        $product = Product::findOrFail($id);
+
+        return view('products.buy', ['product' => $product]);
+    }
+
+    function buy(Request $request) {
+
+        $purchase = new Purchase();
+        $profit = new Profit();
+        $store = Loja::findOrFail(1);
+        $product = Product::findOrFail($request->id);
+
+
+        $purchase->id_product = $product->id;
+        $purchase->buyers_name = $request->buyer_name;
+        $purchase->cpf = $request->cpf;
+        $purchase->phone = $request->phone;
+        $purchase->email = $request->email;
+        $purchase->uf = $request->uf;
+        $purchase->city = $request->city;
+        $purchase->address = $request->address;
+        $purchase->home_number = $request->home_number;
+        $purchase->card_numbers = $request->card_numbers;
+        $purchase->cvv = $request->cvv;
+        $purchase->due_date = $request->due_date;
+        $purchase->quantity = $request->quantity;
+
+        $purchase->save();
+
+        $quant = $product->quantidade_produto;
+        $product->update(['quantidade_produto' => $quant - $purchase->quantity]);
+
+        $profit->date = date('Y,m,d');
+        $profit->spent = 0;
+        if ($product->promotion) {
+            $profit->earnings = $product->new_price;
+            $store->update(['balance' => $store->balance += $product->new_price]);
+        }else {
+            $profit->earnings = $product->price;
+            $store->update(['balance' => $store->balance += $product->price]);
+        }
+        $profit->save();
+
+
+
+        return redirect("/product/{$request->id}");
     }
 }

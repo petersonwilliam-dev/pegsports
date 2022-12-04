@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ProductController::class, 'index'])->name('index');
-
 Route::get('/product/create', [ProductController::class, 'create'])->middleware('auth');
 Route::get('/product/{id}', [ProductController::class, 'show']);
 Route::get('/addCart/{id}', [ProductController::class, 'addCart'])->middleware('auth');
@@ -34,10 +33,6 @@ Route::get('/logout', [UserController::class, 'authLogout']);
 Route::get('/cart', [ProductController::class, 'userCart'])->middleware('auth');
 Route::delete('/leave/{id}', [ProductController::class, 'leaveCart'])->middleware('auth');
 Route::get('/search', [ProductController::class, 'search']);
-/*Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-}); */
+Route::get('/buyItem/{id}', [ProductController::class, 'buyItem']);
+Route::post('/buy/{id}', [ProductController::class, 'buy']);
+

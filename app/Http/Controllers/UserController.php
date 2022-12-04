@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use App\Models\Loja;
 use App\Models\Product;
+use App\Models\Profit;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +14,7 @@ use Illuminate\Support\Facades\Session;
 class UserController extends Controller
 {
 
-    
+
     function loginPage() {
         return view('auth.login');
     }
@@ -41,6 +43,9 @@ class UserController extends Controller
     }
 
     function dashboard() {
+
+        $invoices = Invoice::all();
+
         $user = auth()->user();
 
         if ($user->user_level < 6) {
@@ -50,7 +55,7 @@ class UserController extends Controller
 
         $loja = Loja::findOrFail(1);
 
-        return view('admin.dashboard', ['products' => $products, 'loja' => $loja]);
+        return view('admin.dashboard', ['products' => $products, 'loja' => $loja, 'invoices' => $invoices]);
     }
 
 }

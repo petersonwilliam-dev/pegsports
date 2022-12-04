@@ -162,13 +162,10 @@
 
 }
 .barra_lateral{
-    overflow-x: hidden;
     margin: 20px 0;
 }
 .container-itens{
     display: flex;
-    transition: transform .5s ease-in-out;
-    transform: translateX(0);
 }
 .container-product-single{
     margin: 30px 20px;

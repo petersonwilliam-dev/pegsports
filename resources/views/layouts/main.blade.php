@@ -20,7 +20,7 @@
     <header id="header">
         <h1 style="display:none">PEG Sports</h1>
         <h2 style="display:none">Artigos Esportivos</h2>
-        <div class="navbar">
+        <div class="nav-bar">
             <div class="navbar-head">
                 <div class="img_logo">
                     <a href="/"><img src="/img/logo.png" class="logo" id="logo" alt="Logo"></a>
@@ -37,8 +37,13 @@
                         <a href="{{route('login')}}"><ion-icon style="font-size: 15pt; margin-right: 5px;" name="person-circle-outline"></ion-icon> Entre ou cadastre-se</a>
                     @endguest
                     @auth
+                        @if ($user->user_level > 5)
+                            <a href="/dashboard">
+                                <ion-icon style="font-size: 25px;" name="stats-chart-outline"></ion-icon>
+                            </a>
+                        @else
                         <a href="/cart">
-                            <ion-icon style="font-size: 25px;" name="cart"></ion-icon>
+                            <ion-icon style="font-size: 25px;" name="cart-outline"></ion-icon>
                             <div class="quantity-in-car">
                                 @if ($quantityCart < 10)
                                     {{$quantityCart}}
@@ -48,6 +53,7 @@
                             </div>
                         </a>
                         <a href="/logout"><ion-icon style="font-size: 25px;" name="log-out-outline"></ion-icon></a>
+                        @endif
                     @endauth
                 </div>{{--options--}}
             </div>{{--navbar-head--}}

@@ -37,13 +37,17 @@
                 </div>{{--evualtion--}}
                 <div class="price-content">
                     @if ($products->promotion)
-                    <span class="price-promotion">R$ 1.099,00</span>
+                    <span class="price-promotion">R$ {{number_format($products->price, 2, ",",".")}}</span>
+                    <h3 class="price">R$ {{number_format($products->new_price, 2, "," ,".")}}</h3>
+                    <span class="card-installment"><ion-icon name="card-outline"></ion-icon> até 11x de {{number_format($products->new_price/11, 2, "," ,'.')}}</span>
+                    @else
+                    <h3 class="price">R$ {{number_format($products->price, 2, "." ,",")}}</h3>
+                    <span class="card-installment"><ion-icon name="card-outline"></ion-icon> até 11x de {{number_format($products->price/11, 2, "," ,'.')}}</span>
                     @endif
-                    <h3 class="price">R$ {{number_format($products->price, 2, "." ,',')}}</h3>
-                    <span class="card-installment"><ion-icon name="card-outline"></ion-icon> até 11x de {{}}</span>
-                </div>number_format(($products->price/11), 2, "." ,',')
+
+                </div>
                 <div class="buy-area">
-                    <button href="#" class="btn-buy"><ion-icon name="bag-handle-outline"></ion-icon> Comprar</button>
+                    <a style="text-decoration: none;" href="/buyItem/{{$products->id}}"><button class="btn-buy"><ion-icon name="bag-handle-outline"></ion-icon> Comprar</ion-icon></button></a>
                     @if (!$inCart)
                         <a href="/addCart/{{$products->id}}" style="text-decoration: none;"><button class="btn-cart"><ion-icon name="cart-outline"></ion-icon><ion-icon name="add-outline"></ion-icon>Adicionar ao carrinho</button></a>
                     @else
@@ -71,9 +75,39 @@
         <div class="barra_lateral">
             <div class="container-itens" id="car">
 
+            @for ($i = 0; $i < 1; $i++)
+            @if ($similar[$i] && $similar[$i]->id != $products->id)
 
+            <div class="container-product-single">
+            <a href="/product/{{$similar[$i]->id}}" style="text-decoration:none;">
+                    <div class="img-product">
+                        <img src="/img/img-products/{{$similar[$i]->photosProduct[0]}}" width="190px" alt="{{$similar[$i]->name_product}}">
+                    </div>
+                    <div class="description-product">
+                        <h3 class="title_product">{{$similar[$i]->name_product}}<h3>
+                        <div class="evaluation">
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star-half"></ion-icon>
+                        </div>
+                        <p style="color: #008000; font-weight: 300">FRETE GRÁTIS <ion-icon name="checkmark"></ion-icon></p>
+                        @if ($similar[$i]->promotion)
+                            <p class="text-secondary-product">R$ {{number_format(($similar[$i]->price), 2, "," ,'.')}}</p>
+                            <h4 style="color:#212529;">R$ {{number_format(($similar[$i]->new_price), 2, "," ,'.')}}<h4>
+                            <p class="portion">Ou 4x de R$ {{number_format(($similar[$i]->price/11), 2, "," ,'.')}}</p>
+                        @else
+                            <h4 style="color:#212529;">R$ {{number_format(($similar[$i]->price), 2, "," ,'.')}}<h4>
+                            <p class="portion">Ou 4x de R$ {{number_format(($similar[$i]->price/11), 2, "," ,'.')}}</p>
+                        @endif
+                    </div>
+                    </a>
+                    @endif
+                    </div>{{--container-product-single--}}
+                    @endfor
 
-            </div>{{--container-products--}}
+            </div>{{--container-itens--}}
         </div>{{--barra-produto--}}
     </main>{{--main--}}
 

@@ -30,37 +30,26 @@
                 <table class="table table-bordered border-dark" style="overflow: scroll;">
                 <thead class="table-dark">
                     <tr>
-                        <th>Mês</th>
+                        <th>Data</th>
                         <th>Ganho</th>
                         <th>Gasto</th>
                         <th>Lucro</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($invoices as $invoice)
                     <tr>
-                        <td>Janeiro</td>
-                        <td class="earnings">R$ 500.00</td>
-                        <td class="spendings">R$ 1000.00</td>
-                        <td class="profits">R$ -500.00</td>
+                        <td>{{date('d/m/Y', strtotime($invoice->date))}}</td>
+                        <td class="earnings">R$ {{number_format($invoice->earnings, 2 ,",",".")}}</td>
+                        <td class="spendings">R$ {{number_format($invoice->spent, 2 ,",",".")}}</td>
+                        @if (($invoice->earnings - $invoice->spent) > 0)
+                        <td class="profits">R$ {{number_format(($invoice->earnings - $invoice->spent), 2 ,",",".")}}</td>
+                        @else
+                        <td class="profits-">R$ {{number_format(($invoice->earnings - $invoice->spent), 2 ,",",".")}}</td>
+                        @endif
                     </tr>
-                    <tr>
-                        <td>Janeiro</td>
-                        <td class="earnings">R$ 500.00</td>
-                        <td class="spendings">R$ 1000.00</td>
-                        <td class="profits">R$ -500.00</td>
-                    </tr>
-                    <tr>
-                        <td>Janeiro</td>
-                        <td class="earnings">R$ 500.00</td>
-                        <td class="spendings">R$ 1000.00</td>
-                        <td class="profits">R$ -500.00</td>
-                    </tr>
-                    <tr>
-                        <td>Janeiro</td>
-                        <td class="earnings">R$ 500.00</td>
-                        <td class="spendings">R$ 1000.00</td>
-                        <td class="profits">R$ -500.00</td>
-                    </tr>
+                    @endforeach
+
                 </tbody>
                 </table>
 
@@ -120,6 +109,7 @@
 <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 
 <script>
+
 const labels = [
 'Janeiro',
 'Fevereiro',
@@ -139,9 +129,22 @@ const data = {
     labels: labels,
     datasets: [{
     label: 'Ganhos de vendas em R$',
-    backgroundColor: 'rgb(0,0,0)',
-    borderColor: 'rgb(0,0,0)',
-    data: [0, 10, 5, 2, 20, 30, 45,33,55,66,2,70],
+    backgroundColor: '#005eee',
+    borderColor: '#005eee',
+    data: [
+        {{$invoices[0]->earnings}},
+        {{$invoices[1]->earnings}},
+        {{$invoices[2]->earnings}},
+        {{$invoices[3]->earnings}},
+        {{$invoices[4]->earnings}},
+        {{$invoices[5]->earnings}},
+        {{$invoices[6]->earnings}},
+        {{$invoices[7]->earnings}},
+        {{$invoices[8]->earnings}},
+        {{$invoices[9]->earnings}},
+        {{$invoices[10]->earnings}},
+        {{$invoices[11]->earnings}},
+    ],
 }]
 };
 
@@ -156,9 +159,6 @@ const myChart = new Chart(
     config
 );
 
-</script>
-
-<script>
     $(document).ready(function(){
       $('#minhaTabela').DataTable({
         	"language": {

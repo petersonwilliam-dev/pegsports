@@ -72,10 +72,12 @@ td.earnings{
 td.spendings{
     color: rgb(238, 12, 12);
 }
-td.profits{
-
+.profits{
+    color: rgb(23, 182, 23);
 }
-
+.profits-{
+    color: rgb(238, 12, 12);
+}
 .sales_table{
     max-width: 1100px;
     padding: 30px;

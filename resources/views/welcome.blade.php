@@ -37,12 +37,12 @@
                         </div>
                         <p style="color: #008000; font-weight: 300">FRETE GRÁTIS <ion-icon name="checkmark"></ion-icon></p>
                         @if ($releases[$i]->promotion)
-                            <p class="text-secondary-product">R$ {{number_format(($releases[$i]->price), 2, "." ,',')}}</p>
-                            <h4 style="color:#212529;">R$ {{number_format(($releases[$i]->new_price), 2, "." ,',')}}<h4>
-                            <p class="portion">Ou 4x de R$ {{number_format(($releases[$i]->price/11), 2, "." ,',')}}</p>
+                            <p class="text-secondary-product">R$ {{number_format(($releases[$i]->price), 2, "," ,'.')}}</p>
+                            <h4 style="color:#212529;">R$ {{number_format(($releases[$i]->new_price), 2, "," ,'.')}}<h4>
+                            <p class="portion">Ou 4x de R$ {{number_format(($releases[$i]->price/11), 2, "," ,'.')}}</p>
                         @else
-                            <h4 style="color:#212529;">R$ {{number_format(($releases[$i]->price), 2, "." ,',')}}<h4>
-                            <p class="portion">Ou 4x de R$ {{number_format(($releases[$i]->price/11), 2, "." ,',')}}</p>
+                            <h4 style="color:#212529;">R$ {{number_format(($releases[$i]->price), 2, "," ,'.')}}<h4>
+                            <p class="portion">Ou 4x de R$ {{number_format(($releases[$i]->price/11), 2, "," ,'.')}}</p>
                         @endif
                     </div>
                     </a>
